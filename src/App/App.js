@@ -1,8 +1,21 @@
 import react from "react"
 import './App.css';
 import SideMenu from "../components/SideMenu"
-import { CssBaseline, makeStyles } from "@material-ui/core";
+import { CssBaseline, makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import Header from "../components/Header"
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#333996",
+      light: '#3c44b126'
+    },
+    secondary: {
+      main: "#f83245",
+      light: '#f8324526'
+    },
+  }
+})
 
 const useStyles = makeStyles({
   appMain: {
@@ -14,13 +27,13 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
   return (
-    < >
+    <ThemeProvider theme={theme}>
       <SideMenu />
       <div className={classes.appMain}>
         <Header />
       </div>
       <CssBaseline />
-    </>
+    </ThemeProvider  >
   );
 }
 
