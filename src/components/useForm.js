@@ -1,11 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { makeStyles} from '@material-ui/core';
 
-function useForm() {
-    return (
-        <div>
+export function useForm(initianlValues) {
+
+    const [values, setValues ] = useState(initianlValues);
+
+    const handleInputChange = e =>{
+        const {name, value } = e.target
+        setValues({
+            ...values,
+            [name]: value
+        })
+    }
+
+    return {
+        values,
+        setValues,
+        handleInputChange
+    }
+}
+
+const useStyles = makeStyles(theme =>({
+    root:{
+        ' & .MuiFormControl-root':{
+            width: '80%',
+            margin: theme.spacing(1)
             
-        </div>
+        }
+    }
+}))
+
+
+export function Form(props) {
+    const classes = useStyles()
+    return (
+        <form className={classes.root}>
+            {props.children}
+        </form>
     )
 }
 
-export default useForm
+
+
+
+
