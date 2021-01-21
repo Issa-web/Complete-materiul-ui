@@ -2,7 +2,7 @@ import { FormControl, FormControlLabel, FormLabel, Grid, makeStyles, Radio, Radi
 import React , { useState, useEffect }from 'react'
 import { useForm, Form} from "../../components/useForm"
 import Controls from "../../components/controls/Controls"
-
+import * as employeeService  from "../../Services/employeeService"
 
 
 const genderItems =[
@@ -58,7 +58,20 @@ function EmployeeForm() {
                         onChange={handleInputChange}
                         items={genderItems}
                     />
-                   
+                    <Controls.Select
+                        name="departmentId"
+                        label="Department"
+                        value={values.departmentId}
+                        onChange={handleInputChange}
+                        options={employeeService.getDepartmentCollection()}
+                    /> 
+                    <Controls.Checkbox
+                    name="isPermanent"
+                    label="Permanent Employee"
+                    value={values.isPermanent}
+                    onChange={handleInputChange}
+                    
+                    />
                 </Grid>
             </Grid>
         </Form>
