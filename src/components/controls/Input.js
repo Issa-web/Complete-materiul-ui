@@ -5,7 +5,7 @@ function Input(props) {
 
     const {name, label, value, onChange} = props;
   return (
-    <TextField 
+    <TextField
     variant='outlined'
     label={label}
     name = {name}
