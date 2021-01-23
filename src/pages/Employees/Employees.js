@@ -2,14 +2,19 @@ import React, {useState} from 'react'
 import EmployeeForm from './EmployeeForm'
 import PageHeader from "../../components/PageHeader"
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
-import { makeStyles, Paper, TableBody, TableCell, TableRow, Toolbar } from '@material-ui/core';
+import { InputAdornment, makeStyles, Paper, TableBody, TableCell, TableRow, Toolbar } from '@material-ui/core';
 import useTable from '../../components/controls/useTable';
 import * as employeeService from "../../Services/employeeService"
 import Controls from "../../components/controls/Controls"
+import { Search } from '@material-ui/icons';
+
 const useStyles = makeStyles(theme =>({
     pageContent: {
         margin: theme.spacing(5),
         padding: theme.spacing(3)
+    },
+    searchInput:{
+        width: '75%'
     }
 }))
 
@@ -25,13 +30,31 @@ function Employees() {
 
     const classes = useStyles();
     const [records, setRecords] = useState(employeeService.getAllEmployees());
+    const [filterFn, setfilterFn] = useState({fn: items => {return items} })
 
     const {
         TblContainer,
         TblHead,
         TblPagination,
         recordsAfterPagingAndSorting
-    } = useTable(records, headCells);
+    } = useTable(records, headCells, filterFn);
+
+     const handleSearch = (e) =>{
+         let target = e.taget;
+         setfilterFn({
+             fn: items =>{
+                if(target.value ==="")
+                    return items;
+                else
+                    return items.filter(x => x.fullName.toLoweCase().includes(target.value))
+                   
+                       
+                
+             }
+         })
+
+     }
+
 
     return (
     <>    
@@ -45,6 +68,14 @@ function Employees() {
              <Toolbar>
                 <Controls.Input
                     label="Search Employees"
+                    className={classes.searchInput}
+                    InputProps= {{
+                        startAdornment:( <InputAdornment position='start'>
+                            <Search/>
+                        </InputAdornment>)
+                    }}
+                    onChange={{handleSearch}}
+                    
                 />
              </Toolbar>
              <TblContainer>
