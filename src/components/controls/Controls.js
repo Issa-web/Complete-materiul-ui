@@ -4,15 +4,16 @@ import Select from "./Select";
 import Checkbox from "./Checkbox";
 import DatePicker from "./DatePicker";
 import Button from "./Button";
+import ActionButton from "./ActionButton";
 
-const Controls ={
+const Controls = {
     Input,
     RadioGroup,
     Select,
     Checkbox,
     DatePicker,
-    Button
-
+    Button,
+    ActionButton
 }
 
-export default Controls
+export default Controls;
